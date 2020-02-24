@@ -20,4 +20,13 @@ router.post("/postevent", async (request, response, next) => {
   }
 });
 
+router.get("/getevents", async (request, response, next) => {
+  try {
+    const allEvents = await Event.findAll();
+    response.send(allEvents);
+  } catch {
+    error => next(console.error);
+  }
+});
+
 module.exports = router;

@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../db");
+const Ticket = require("../tickets/model");
 
 const Event = sequelize.define("event", {
   name: {
@@ -26,5 +27,8 @@ const Event = sequelize.define("event", {
     allowNull: false
   }
 });
+
+Event.hasMany(Ticket);
+Ticket.belongsTo(Event);
 
 module.exports = Event;
