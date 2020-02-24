@@ -6,6 +6,8 @@ const { toJWT } = require("../auth/jwt");
 const router = new Router();
 
 router.post("/usersignup", (request, response, next) => {
+  console.log(request.body);
+
   //validate request(do we have email and pasword in req.body)
   if (!request.body.email || !request.body.password) {
     return response.send({
