@@ -3,6 +3,9 @@ const sequelize = require("../db");
 const Comment = require("../comments/model");
 
 const Ticket = sequelize.define("ticket", {
+  title: {
+    type: Sequelize.STRING
+  },
   imageurl: {
     type: Sequelize.STRING
   },
@@ -11,7 +14,7 @@ const Ticket = sequelize.define("ticket", {
     allowNull: false
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false
   }
 });

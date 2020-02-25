@@ -9,7 +9,7 @@ const Event = sequelize.define("event", {
     allowNull: false
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     unique: true,
     allowNull: false
   },

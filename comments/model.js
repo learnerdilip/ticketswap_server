@@ -3,7 +3,7 @@ const sequelize = require("../db");
 
 const Comment = sequelize.define("comment", {
   text: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false
   },
   author: {
