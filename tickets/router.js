@@ -18,7 +18,7 @@ router.post("/getticketlist", async (request, response, next) => {
   }
 });
 
-router.post("/ticketpost", async (request, response, next) => {
+router.post("/ticketpost", auth, async (request, response, next) => {
   try {
     console.log("----------------------", request.body);
 
