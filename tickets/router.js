@@ -18,10 +18,12 @@ router.post("/getticketlist", async (request, response, next) => {
   }
 });
 
-router.post("/ticketpost", auth, async (request, response, next) => {
+router.post("/ticketpost", async (request, response, next) => {
   try {
+    console.log("----------------------", request.body);
+
     const { price, description, title } = request.body.fullTicket;
-    const eventId = request.body.eventid;
+    const eventId = request.body.eventId;
     const userId = request.body.userid;
     const createTicket = await Ticket.create({
       price,
