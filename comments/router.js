@@ -1,9 +1,10 @@
 const { Router } = require("express");
 const Comment = require("./model");
+const auth = require("../auth/middleWare");
 
 const router = new Router();
 
-router.post("/sendcomment", async (request, response, next) => {
+router.post("/sendcomment", auth, async (request, response, next) => {
   try {
     // console.log("---------------the request", request.body);
     const { userid, ticketid, text } = request.body;

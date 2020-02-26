@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const Ticket = require("./model");
+const auth = require("../auth/middleWare");
 
 const router = new Router();
 
@@ -16,7 +17,7 @@ router.post("/getticketlist", async (request, response, next) => {
   }
 });
 
-router.post("/ticketpost", async (request, response, next) => {
+router.post("/ticketpost", auth, async (request, response, next) => {
   try {
     const { price, description, title } = request.body.fullTicket;
     const eventId = request.body.eventId;
