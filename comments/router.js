@@ -20,7 +20,7 @@ router.post("/sendcomment", auth, async (request, response, next) => {
 
 router.post("/getticketcomments", async (request, response, next) => {
   try {
-    console.log("request.body", request.body);
+    console.log("request.body----------------------------", request.body);
 
     const allticketcomments = await Comment.findAll({
       where: {
