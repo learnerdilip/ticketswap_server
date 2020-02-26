@@ -23,7 +23,15 @@ router.post("/postevent", auth, async (request, response, next) => {
 
 router.get("/getevents", async (request, response, next) => {
   try {
-    const allEvents = await Event.findAll();
+    const limit = request.query.limit || 9;
+    const offset = request.query.offset || 0;
+    const allEvents = await Event.findAll({ limit, offset });
+    //   {where: {
+    //     startDate: { [Sequelize.Op.gt]: new Date("25 - 02 - 2020") }
+    //   }
+    // });
+    // console.log("-----------------------------", allEvents.length);
+
     response.send(allEvents);
   } catch {
     error => next(console.error);
