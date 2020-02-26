@@ -1,9 +1,10 @@
 const { Router } = require("express");
 const Event = require("./model");
+const auth = require("../auth/middleWare");
 
 const router = new Router();
 
-router.post("/postevent", async (request, response, next) => {
+router.post("/postevent", auth, async (request, response, next) => {
   // console.log("THE REQUERST FOR POST EVENTS", request.body);
   try {
     const tempevent = await Event.create({

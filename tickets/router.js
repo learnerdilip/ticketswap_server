@@ -20,7 +20,12 @@ router.post("/ticketpost", async (request, response, next) => {
   try {
     const { price, description, title } = request.body.fullTicket;
     const eventId = request.body.eventId;
-    const createTicket = Ticket.create({ price, description, title, eventId });
+    const createTicket = await Ticket.create({
+      price,
+      description,
+      title,
+      eventId
+    });
   } catch {
     error => next(console.error);
   }
