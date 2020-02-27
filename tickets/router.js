@@ -39,11 +39,7 @@ router.post("/ticketpost", auth, async (request, response, next) => {
 });
 
 router.post("/updaterisk", async (request, response, next) => {
-  // //the inital risk can be given based on fixed parameters
-  // //time of creation (given in 24 hr format)
-  const timeHour = new Date(request.body.createdAt);
-  const hora = timeHour.getHours();
-  const lateRiskMeasure = hora > 9 && hora < 17 ? -10 : 10; //(3)
+  //the inital risk can be given based on fixed parameters
 
   //only one ticket (add 10%)
   const UserTickets = await Ticket.findAll({
@@ -51,8 +47,9 @@ router.post("/updaterisk", async (request, response, next) => {
   });
   const userTicketCount = UserTickets.length;
   const isOnlyTicket = userTicketCount <= 1 ? 10 : 0; //(1)
+  console.log("------single ticket?-------", isOnlyTicket);
 
-  // //avg will decide about the % RISK above/below
+  //avg will decide about the % RISK above/below
   const ticketEventArray = await Ticket.findAll({
     where: { eventId: request.body.eventId }
   });
@@ -63,12 +60,22 @@ router.post("/updaterisk", async (request, response, next) => {
   const percetage = Math.floor(
     ((averageOfEventPrice - request.body.price) * 100) / averageOfEventPrice
   );
-  const avgRiskPercentage =
-    averageOfEventPrice > request.body.price
-      ? Math.min(-percetage, -10)
-      : Math.max(percetage, 10);
+  console.log("the percent high/low PRICE----------", percetage);
 
-  // //FINAL RISK(INITIAL)
+  const avgRiskPercentage =
+    percetage < 0 ? Math.max(percetage, -10) : Math.max(percetage, 10); //(2)
+  console.log(
+    "the averageRisk percentage after 10 filter#######",
+    avgRiskPercentage
+  );
+
+  //time of creation (given in 24 hr format)
+  const timeHour = new Date(request.body.createdAt);
+  const hora = timeHour.getHours();
+  const lateRiskMeasure = hora > 9 && hora < 17 ? -10 : 10; //(3)
+  console.log("----------the late hour --------", lateRiskMeasure);
+
+  //FINAL RISK(INITIAL)
   const initRiskOfTicket =
     isOnlyTicket + lateRiskMeasure + avgRiskPercentage < 5
       ? 5
