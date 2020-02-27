@@ -61,24 +61,26 @@ router.post("/updaterisk", async (request, response, next) => {
   }, 0);
   const averageOfEventPrice = Math.floor(sumOfPrices / ticketEventArray.length);
   const percetage = Math.floor(
-    (request.body.price * 100) / averageOfEventPrice
+    ((averageOfEventPrice - request.body.price) * 100) / averageOfEventPrice
   );
   const avgRiskPercentage =
-    averageOfEventPrice > request.body.price ? -percetage : percetage;
+    averageOfEventPrice > request.body.price
+      ? Math.min(-percetage, -10)
+      : Math.max(percetage, 10);
 
   // //FINAL RISK(INITIAL)
   const initRiskOfTicket =
-    isOnlyTicket + lateRiskMeasure + averageOfEventPrice < 5
+    isOnlyTicket + lateRiskMeasure + avgRiskPercentage < 5
       ? 5
-      : isOnlyTicket + lateRiskMeasure + averageOfEventPrice > 95
+      : isOnlyTicket + lateRiskMeasure + avgRiskPercentage > 95
       ? 95
-      : isOnlyTicket + lateRiskMeasure + averageOfEventPrice;
+      : isOnlyTicket + lateRiskMeasure + avgRiskPercentage;
   // console.log("the RISK IS _______-----------", initRiskOfTicket);
   //add to the ticket
   const ticketFind = await Ticket.findByPk(request.body.id);
   ticketFind.risk = initRiskOfTicket;
   ticketFind.save();
-  console.log("----------the final ticket with RISK----", ticketFind);
+  // console.log("----------the final ticket with RISK----", ticketFind);
   response.send(ticketFind);
 });
 
