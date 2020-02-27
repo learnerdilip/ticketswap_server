@@ -63,7 +63,7 @@ router.post("/updaterisk", async (request, response, next) => {
   console.log("the percent high/low PRICE----------", percetage);
 
   const avgRiskPercentage =
-    percetage < 0 ? Math.max(percetage, -10) : Math.max(percetage, 10); //(2)
+    percetage < 0 ? Math.max(percetage, -10) : Math.min(percetage, 10); //(2)
   console.log(
     "the averageRisk percentage after 10 filter#######",
     avgRiskPercentage
