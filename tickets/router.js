@@ -74,6 +74,7 @@ router.post("/updaterisk", async (request, response, next) => {
   ticketFind.risk = initRiskOfTicket;
   ticketFind.save();
   console.log("----------the final ticket with RISK----", ticketFind);
+  response.send(ticketFind);
 });
 
 module.exports = router;
