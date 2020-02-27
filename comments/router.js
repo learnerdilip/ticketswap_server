@@ -13,6 +13,8 @@ router.post("/sendcomment", auth, async (request, response, next) => {
       userId: userid,
       ticketId: ticketid
     });
+    // console.log("the ---------temp ticket----------", temp);
+    response.send(temp);
   } catch (error) {
     next(console.error);
   }
