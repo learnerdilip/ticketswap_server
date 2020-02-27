@@ -91,4 +91,34 @@ router.post("/updaterisk", async (request, response, next) => {
   response.send(ticketFind);
 });
 
+router.post("/editticket", async (request, response, next) => {
+  // console.log("--------the req.........", request.body.ticket.id);
+  const findTicket = await Ticket.findByPk(request.body.ticket.id);
+  findTicket.title = request.body.ticketState.title;
+  findTicket.description = request.body.ticketState.description;
+  findTicket.price = request.body.ticketState.price;
+  findTicket.save();
+  console.log("--the changed ticket------------------", findTicket.dataValues);
+  response.json(findTicket);
+});
+
 module.exports = router;
+
+// ticket: {
+//   id: 18,
+//   title: 'edit check',
+//   imageurl: null,
+//   price: 43,
+//   description: 'this is just to check if i can edit',
+//   risk: 5,
+//   createdAt: '2020-02-27T19:35:45.549Z',
+//   updatedAt: '2020-02-27T19:35:45.601Z',
+//   userId: 6,
+//   eventId: 7
+// },
+// ticketState: {
+//   title: 'fouth undersateat ',
+//   description: 'asljnv sd, ,sdm RANDOM',
+//   price: '55'
+// }
+// }
