@@ -63,7 +63,7 @@ router.post("/updaterisk", async (request, response, next) => {
   console.log("the percent high/low PRICE----------", percetage);
 
   const avgRiskPercentage =
-    percetage < 0 ? Math.max(percetage, -10) : Math.min(percetage, 10); //(2)
+    percetage < 0 ? Math.max(percetage, -10) : percetage; //(2)
   console.log(
     "the averageRisk percentage after 10 filter#######",
     avgRiskPercentage
@@ -103,22 +103,3 @@ router.post("/editticket", async (request, response, next) => {
 });
 
 module.exports = router;
-
-// ticket: {
-//   id: 18,
-//   title: 'edit check',
-//   imageurl: null,
-//   price: 43,
-//   description: 'this is just to check if i can edit',
-//   risk: 5,
-//   createdAt: '2020-02-27T19:35:45.549Z',
-//   updatedAt: '2020-02-27T19:35:45.601Z',
-//   userId: 6,
-//   eventId: 7
-// },
-// ticketState: {
-//   title: 'fouth undersateat ',
-//   description: 'asljnv sd, ,sdm RANDOM',
-//   price: '55'
-// }
-// }
