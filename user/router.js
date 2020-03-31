@@ -6,7 +6,7 @@ const { toJWT } = require("../auth/jwt");
 const router = new Router();
 
 router.post("/usersignup", (request, response, next) => {
-  console.log(request.body);
+  // console.log(request.body);
 
   //validate request(do we have email and pasword in req.body)
   if (!request.body.email || !request.body.password) {
@@ -20,7 +20,6 @@ router.post("/usersignup", (request, response, next) => {
   User.create(user)
     .then(user => response.send(user))
     .catch(e => {
-      // console.log(JSON.stringify(e.errors[0].message, null, 2));
       response.send({
         error: true,
         message: "Something went wrong"
@@ -29,14 +28,13 @@ router.post("/usersignup", (request, response, next) => {
 });
 
 router.post("/userlogin", async (request, response) => {
-  console.log(request.body);
-
   const user = await User.findOne({ where: { email: request.body.email } });
 
   const passwordValid = bcrypt.compareSync(
     request.body.password,
     user.password
   );
+  // console.log("************", passwordValid);
 
   if (passwordValid) {
     const userNew = {
