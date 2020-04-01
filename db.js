@@ -3,7 +3,7 @@ const app = require("./index");
 const Sequelize = require("sequelize");
 
 const databseUrl =
-  process.env.DATABSE_URL ||
+  process.env.DATABASE_URL ||
   "postgres://postgres:secret@localhost:5432/postgres";
 
 const db = new Sequelize(databseUrl);

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const db = require("./db");
 const UserRouter = require("./user/router");
 const EventRouter = require("./events/router");
@@ -6,10 +7,9 @@ const TicketRouter = require("./tickets/router");
 const CommentRouter = require("./comments/router");
 
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 4000;
 
-const cors = require("cors");
-app.use(cors());
 app.use(express.json()); // body parser
 app.use(UserRouter);
 app.use(EventRouter);
